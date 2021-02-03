@@ -12,7 +12,6 @@ buildTES <- function(x, topic_df, best=c("min","max"), min_tes = -1, ...){
     Output:
         - the tracked topic information consisting of topics and their evolutionary relations over the timeline observed in the topic_df
     "
-    
     ##-----------------------------------------------------------------------------------------------
     ## Check parameters
     best <- match.arg(best)
