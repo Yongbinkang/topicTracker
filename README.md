@@ -20,8 +20,13 @@ git clone https://github.com/Yongbinkang/topicTracker.git
   * The `TopicTrackerDemo.ipynb` contains the demo code on Jupyter notebook using R Kernel. Users can simply run the sequential steps using the provided data.
 * The __`data/`__ directory contains two sample data used in `TopicTrackerDemo.ipynb`. 
 
-## Demo
+## A TET Example
 <img src="https://github.com/Yongbinkang/topicTracker/blob/main/image/tet.png" alt="Topic Evolution Tree Example" width="500" height="400">
+
+The TET shows the follows:
+ * Evolutionary pathways of 11 topics with evolution strengths, indicated by the directed edges with different edge colors, 
+ * Evolution states of the topics, indicated by different node colors and sizes 
+ * The topic popularity indicated by topic weight information on the y-axis.
 
 ## Citation
 If you use <b>TopicTracker</b> in your research and development, please cite [TopicTracker: A Platform for Topic Trajectory Identification and Visualisation](https://arxiv.org/xxx)
