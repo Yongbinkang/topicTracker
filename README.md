@@ -21,7 +21,7 @@ git clone https://github.com/Yongbinkang/topicTracker.git
 * The __`data/`__ directory contains two sample data used in `TopicTrackerDemo.ipynb`. 
 
 ## Demo
-<img src="https://github.com/Yongbinkang/topicTracker/blob/main/image/tet.png" alt="Topic Evolution Tree Example" width="500" height="500">
+<img src="https://github.com/Yongbinkang/topicTracker/blob/main/image/tet.png" alt="Topic Evolution Tree Example" width="500" height="400">
 
 ## Citation
 If you use <b>TopicTracker</b> in your research and development, please cite [TopicTracker: A Platform for Topic Trajectory Identification and Visualisation](https://arxiv.org/xxx)
