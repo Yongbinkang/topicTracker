@@ -12,6 +12,7 @@ buildTES <- function(x, topic_df, best=c("min","max"), min_tes = -1, ...){
     Output:
         - the tracked topic information consisting of topics and their evolutionary relations over the timeline observed in the topic_df
     "
+    
     ##-----------------------------------------------------------------------------------------------
     ## Check parameters
     best <- match.arg(best)
@@ -318,10 +319,12 @@ visualiseTES <- function(x, topic_df, root='R', min_reborn=2, min_dead=2, min_te
     i = 1
     # Get labels of topics corresponding to x_names
     x_labels = c()
-    for (name in x_names_without_root) {
-        id = as.character(x[which(x$child.name==name),]$label[1])
-        label = as.character(x[which(x$child.name==name),]$label[1])
-        x_labels[i] = name
+    for (id in x_names_without_root) {
+        name = as.character(x[which(x$child.name==id),]$label[1])
+        label = as.character(x[which(x$child.name==id),]$label[1])
+        x_labels[i] = name #label = name
+        # x_labels[i] = paste0(id, ":", name) #label = id:name
+
         i = i+1
     }
     x_labels = c(root, x_labels)
@@ -484,7 +487,7 @@ visualiseTES <- function(x, topic_df, root='R', min_reborn=2, min_dead=2, min_te
     plot(G, layout=layout_G,
          #vertex.size = vertex_size, 
          vertex.size = 10, 
-         edge.arrow.size = .3,
+         edge.arrow.size = .5,
          vertex.label=NA,
          vertex.label.cex = .7, 
          vertex.shape="circle",
@@ -499,7 +502,7 @@ visualiseTES <- function(x, topic_df, root='R', min_reborn=2, min_dead=2, min_te
          #edge.color = rgb(ewreds,ewgreens,ewblues), 
          edge.color = ifelse(ewblues==1, "NA", rgb(ewreds,ewgreens,ewblues)), 
 #          edge.curved=.3,
-         edge.width = 0.5, axes = F, edge.curved=F,
+         edge.width = 0.7, axes = F, edge.curved=F,
          vertex.label.dist=0, 
          #mark.groups=color_groups, mark.border = NA, mark.col=valcol
          mark.groups=evol_color_group, mark.border = NA, mark.col=mark_colors, mark.expand=mark_expand,
