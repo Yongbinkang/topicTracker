@@ -276,7 +276,7 @@ visualiseTES <- function(x, topic_df, root='R', min_reborn=2, min_dead=2, min_te
     # Create a topic evolution tree (TET) using layout_as_tree
     x$ances[is.na(x$ances)] <- 0
     # If the node with weight is less than min_tes, we connect the node to the root.
-    x$weight[x$weight<=min_tes] <- 0
+    x$weight[x$weight<min_tes] <- 0
     x$ances[(x$ances !=0) & (x$weight == 0)] <- 0
     
     topic_track_df <- data.frame(x=x$ances, y=x$child, weight=x$weight)
