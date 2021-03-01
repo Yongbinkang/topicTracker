@@ -29,14 +29,16 @@ The TET shows the follows:
  * The topic popularity indicated by topic weight information on the y-axis.
 
 ## Citation
-If you use <b>TopicTracker</b> in your research and development, please cite [TopicTracker: A Platform for Topic Trajectory Identification and Visualisation](https://arxiv.org/xxx)
+If you use <b>TopicTracker</b> in your research and development, please cite [TopicTracker: A Platform for Topic Trajectory Identification and Visualisation](under review in SoftwareX)
+<!-- 
 ```
 @misc{kang2021topictracker,
       title={TopicTracker: A Platform for Topic Trajectory Identification and Visualisation}, 
-      author={Yong-Bin Kang and xxx},
+      author={Yong-Bin Kang and Timos Sellis},
       year={2021},
       eprint={xxxx},
       archivePrefix={arXiv},
       primaryClass={cs.IR}
 }
 ```
+-->
