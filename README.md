@@ -30,15 +30,13 @@ The TET shows the follows:
 
 ## Citation
 If you use <b>TopicTracker</b> in your research and development, please cite [TopicTracker: A Platform for Topic Trajectory Identification and Visualisation](under review in SoftwareX)
-<!-- 
 ```
 @misc{kang2021topictracker,
       title={TopicTracker: A Platform for Topic Trajectory Identification and Visualisation}, 
       author={Yong-Bin Kang and Timos Sellis},
       year={2021},
-      eprint={xxxx},
+      eprint={2103.01432},
       archivePrefix={arXiv},
-      primaryClass={cs.IR}
+      primaryClass={cs.AI}
 }
 ```
--->
