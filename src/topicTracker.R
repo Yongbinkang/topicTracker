@@ -78,7 +78,7 @@ buildTES <- function(x, topic_df, best=c("min","max"), min_tes = -1, ...){
             # take the multiple ancestors
             for (i in 1:length(ances)) {
                 weight = x[ances[i],idx]
-                if (weight >= min_tes) {
+                if (weight > min_tes) {
                     # If the TES (topic evolution strength) is above min_tes, we add ances[i]
                     ances_set <- append(ances_set, ances[i], after=length(ances_set))
                 }
@@ -412,14 +412,14 @@ visualiseTES <- function(x, topic_df, root='R', min_reborn=2, min_dead=2, min_te
     #legend_colors = rainbow(5, alpha=.1)
     mark_expand=c()
     
-    ### Get newly born nodes
     # if you want to change the node size according its evolution state, please change the value of mark_size below
 
+    ### Get newly born nodes
     children_of_root = (x[which(topic_track_df$x==0),])[,1]
     children_of_weak_nodes = (x[which(x$weight==0),])[,1]
     topics = unique((union(children_of_root, children_of_weak_nodes)))
     res = update_mark_group (topics, x_names, evol_color_group, mark_colors, 
-                               legend_colors, legend_color_index, mark_expand, k, mark_size=20)
+                               legend_colors, legend_color_index, mark_expand, k, mark_size=11)
     legend_color_index = legend_color_index+1
     
     ### Get fused nodes
@@ -429,7 +429,7 @@ visualiseTES <- function(x, topic_df, root='R', min_reborn=2, min_dead=2, min_te
     # Get topics names corresponding to the node_indices
     topics = unique(x[which(x$child %in% node_indices),][,1])
     res = update_mark_group (topics, x_names, res$evol_color_group, res$mark_colors, 
-                               legend_colors, legend_color_index, res$mark_expand, res$k, mark_size=15)
+                               legend_colors, legend_color_index, res$mark_expand, res$k, mark_size=9)
     legend_color_index = legend_color_index+1
     
     ### Get split nodes
@@ -438,7 +438,7 @@ visualiseTES <- function(x, topic_df, root='R', min_reborn=2, min_dead=2, min_te
     # Get topics names corresponding to the node_indices
     topics = unique(x[which(x$child %in% node_indices),][,1])
     res = update_mark_group (topics, x_names, res$evol_color_group, res$mark_colors, 
-                               legend_colors, legend_color_index, res$mark_expand, res$k, mark_size=10)
+                               legend_colors, legend_color_index, res$mark_expand, res$k, mark_size=7)
     legend_color_index = legend_color_index+1
     
     ### Get dead nodes
@@ -457,12 +457,12 @@ visualiseTES <- function(x, topic_df, root='R', min_reborn=2, min_dead=2, min_te
     res = update_mark_group(topics, x_names, res$evol_color_group, res$mark_colors, 
                                legend_colors, legend_color_index, res$mark_expand, res$k, mark_size=5)
     legend_color_index = legend_color_index+1
-    
+
     ### Get reborn nodes
     node_indices = unique(df[2])[,1]
     # Get topics names corresponding to the node_indices
     topics = x[which(x$child %in% node_indices),]
-    # Get the topics whose date difference with their infectors is more than 'min_reborn' years
+    # Get the topics whose date difference with their infectors are more than 'min_reborn' years
     latest = unique(subset(topics, ances.date==ave(ances.date, child, FUN=max)))
     child_dates = as.numeric(format(latest$child.date,'%Y')) 
     ances_dates = as.numeric(format(latest$ances.date,'%Y'))    
@@ -484,10 +484,12 @@ visualiseTES <- function(x, topic_df, root='R', min_reborn=2, min_dead=2, min_te
     layout_G = norm_coords(layout_G, ymin=-1, ymax=1, xmin=-1, xmax=1)
     
     vertex_size = c(0,rep(3, nr_of_hosts))[1+unique(c(topic_track_df[,1],1:nr_of_hosts))]
+#     pdf(out_image_fname, width=6, height=6)
+    
+    par(cex.lab = 2, cex.axis = .5)
     plot(G, layout=layout_G,
-         #vertex.size = vertex_size, 
-         vertex.size = 10, 
-         edge.arrow.size = .5,
+#          vertex.size = vertex_size, 
+         vertex.size = 5, 
          vertex.label=NA,
          vertex.label.cex = .7, 
          vertex.shape="circle",
@@ -502,7 +504,10 @@ visualiseTES <- function(x, topic_df, root='R', min_reborn=2, min_dead=2, min_te
          #edge.color = rgb(ewreds,ewgreens,ewblues), 
          edge.color = ifelse(ewblues==1, "NA", rgb(ewreds,ewgreens,ewblues)), 
 #          edge.curved=.3,
-         edge.width = 0.7, axes = F, edge.curved=F,
+         edge.width = 0.7, 
+         axes = F, edge.curved=F,
+         edge.arrow.size = .3,
+         edge.arrow.width=1,
          vertex.label.dist=0, 
          #mark.groups=color_groups, mark.border = NA, mark.col=valcol
          mark.groups=evol_color_group, mark.border = NA, mark.col=mark_colors, mark.expand=mark_expand,
@@ -510,46 +515,55 @@ visualiseTES <- function(x, topic_df, root='R', min_reborn=2, min_dead=2, min_te
          xlim=c(-1,1),
          ylim=c(-1,1),
          rescale=F,
+         cex.lab=1.5,
          xlab="Timeline (Years)",
          ylab="Topic weights",
-         asp=1
+         asp=1,
         )    
 
     # To avoid the overlapped labels of the nodes
     thigmophobe.labels(layout_G[,1], layout_G[,2], labels=ifelse(x_names==root, "", x_labels), 
-                       #font=0.5,
-                       cex=0.75, offset=0.8)
+                       font=1,
+                       cex=1.5, offset=0.8)
     
     legend("bottomright", 
            title="Evolution strength",
+           title.adj = 0.15,         # Horizontal adjustment of the title
            legend=c("[20%,40%)", "[40%,60%)", "[60%,80%)", "[80%,100%)"),
            col=c("darkgreen", "orange", "red", "darkviolet"), 
-           cex=0.8,
-           lty=1, 
-           text.font=0.5, bg='white',
+           cex=1.2,
+           lty=1,
+           lwd=3, #thickness
+           seg.len=0.7,
+           text.font=1, 
+           bg='white',
            xpd=TRUE,
            horiz=F,
-           inset=c(-.3,0),
+           inset=c(-.4,.08),
            bty="n",
+           y.intersp=0.5,
           ) 
     
     legend("topright", 
+           inset=c(-.4,0),
            title="Evolution states",
+           title.adj = 0.2,         # Horizontal adjustment of the title
            #inset=.02, 
            #inset=c(0, -.15),
            legend=c("born", "fused", "split", "dead", "reborn"),
            col=legend_colors, 
-           cex=0.8,
+           cex=1.3,
            #box.lty=1, box.lwd=1, box.col="black", 
-           text.font=0.5, 
+#            text.font=0.5, 
            bg='white',
            pch=c(16,16,16,16,16),
-           pt.cex = 2,
+           pt.cex = 3,
            xpd=TRUE,
            horiz=F,
-           inset=c(-.3,0),
-           bty="n"
+           bty="n",
+           y.intersp=0.45
           )
+    
     # ----------------------------------------------------------------------------
     
 
@@ -568,7 +582,7 @@ visualiseTES <- function(x, topic_df, root='R', min_reborn=2, min_dead=2, min_te
     for (i in 2:(no_ticks)) { 
         print_labs[i]=1+print_labs[i-1]
     }
-    axis(side=1, at=pos, labels=print_labs, cex.axis=0.8)
+    axis(side=1, at=pos, labels=print_labs, cex.axis=1.5)
 
     y_no_ticks = 5
     ytick <- seq(-1, 1, 0.5)
@@ -578,10 +592,11 @@ visualiseTES <- function(x, topic_df, root='R', min_reborn=2, min_dead=2, min_te
         y_labs[i] = round(tmp[i], 2)
     }
     
-    axis(side=2, at=ytick, labels=y_labs, cex.axis=0.8)
-    
+    axis(side=2, at=ytick, labels=y_labs, cex.axis=1.5)    
+#     dev.off() 
     # ----------------------------------------------------------------------------
     result <- list("G"=G, "layout"=layout_G, "node_ids"=x_names, "node_labels"=x_labels, "node_size")
+
     return(result)
 }
 
