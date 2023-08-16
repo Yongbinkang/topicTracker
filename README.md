@@ -33,12 +33,16 @@ The TET shows the follows:
 ## Citation
 If you use <b>TopicTracker</b> in your research and development, please cite [TopicTracker: A Platform for Topic Trajectory Identification and Visualisation](under review in SoftwareX)
 ```
-@misc{kang2021topictracker,
-      title={TopicTracker: A Platform for Topic Trajectory Identification and Visualisation}, 
-      author={Yong-Bin Kang and Timos Sellis},
-      year={2021},
-      eprint={2103.01432},
-      archivePrefix={arXiv},
-      primaryClass={cs.AI}
+@article{KANG2023101330,
+title = {TopicTracker: A platform for topic trajectory identification and visualisation},
+journal = {SoftwareX},
+volume = {22},
+pages = {101330},
+year = {2023},
+issn = {2352-7110},
+doi = {https://doi.org/10.1016/j.softx.2023.101330},
+url = {https://www.sciencedirect.com/science/article/pii/S2352711023000262},
+author = {Yong-Bin Kang and Timos Sellis},
+keywords = {TopicTracker, Topic trajectory, Topic evolution, Topic tracking},
 }
 ```
